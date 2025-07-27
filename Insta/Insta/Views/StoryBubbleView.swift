@@ -8,44 +8,31 @@
 import SwiftUI
 
 struct StoryBubbleView: View {
-    let isSeen: Bool
+    let user: StoryUser
     let size: CGFloat
+    let onTap: () -> Void
     
     var body: some View {
         ZStack {
             Circle()
                 .strokeBorder(
-                    isSeen ? AnyShapeStyle(Color.gray) : AnyShapeStyle(LinearGradient(
+                    user.isSeen ? AnyShapeStyle(Color.gray) : AnyShapeStyle(LinearGradient(
                         gradient: Gradient(colors: [Color.yellow, Color.red]),
                         startPoint: .bottomLeading,
                         endPoint: .topTrailing
                     )),
-                    lineWidth: 2
+                    lineWidth: 4
                 )
                 .frame(width: size, height: size)
             
-            Image(systemName: "person.crop.circle")
+            Image(systemName: user.profilePicSystemName)
                 .resizable()
                 .scaledToFill()
                 .frame(width: size - 8, height: size - 8)
                 .clipShape(Circle())
         }
-    }
-}
-
-struct StoryBubbleView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack(spacing: 20) {
-            StoryBubbleView(
-                isSeen: false,
-                size: 70
-            )
-            StoryBubbleView(
-                isSeen: true,
-                size: 70,
-            )
+        .onTapGesture {
+            onTap()
         }
-        .padding()
-        .previewLayout(.sizeThatFits)
     }
 }
