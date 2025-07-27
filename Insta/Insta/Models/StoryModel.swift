@@ -16,7 +16,7 @@ struct StoriesPage: Codable {
 }
 
 struct StoryUser: Codable, Identifiable, Equatable {
-    let id: Int
+    var id: Int
     let name: String
     let profilePicUrl: String
     

@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct InstaApp: App {
+    @StateObject private var mainVM = MainViewModel()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                ContentView(viewModel: mainVM.returnStoriesViewModel())
+                    .navigationTitle("Instagram")
+            }
         }
     }
 }
