@@ -18,6 +18,9 @@ struct StoryListView: View {
                         isSeen: story.isSeen,
                         size: 70
                     )
+                    .onAppear {
+                        viewModel.loadMoreStoriesIfNeeded(currentIndex: index)
+                    }
                 }
             }
             .padding(.horizontal)

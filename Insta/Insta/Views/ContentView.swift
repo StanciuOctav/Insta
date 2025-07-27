@@ -21,8 +21,5 @@ struct ContentView: View {
             StoryListView(viewModel: viewModel)
             Spacer()
         }
-        .onAppear {
-            viewModel.loadStories()
-        }
     }
 }

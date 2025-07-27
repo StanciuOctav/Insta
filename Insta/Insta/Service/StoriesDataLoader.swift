@@ -8,7 +8,7 @@
 import Foundation
 
 class StoriesDataLoader {
-    func loadStories() throws -> [StoryUser] {
+    func loadStoriesByPage() throws -> [[StoryUser]] {
         guard let url = Bundle.main.url(forResource: "pages", withExtension: "txt") else {
             throw StoriesDataLoaderError.fileNotFound
         }
@@ -16,9 +16,7 @@ class StoriesDataLoader {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()
             let root = try decoder.decode(StoriesRoot.self, from: data)
-
-            let users = root.pages.flatMap { $0.users }
-            return users
+            return root.pages.map { $0.users }
         } catch {
             throw StoriesDataLoaderError.decodingFailed(error)
         }
